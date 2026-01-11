@@ -18,7 +18,24 @@ public static class Divisors {
     /// <returns>List of divisors</returns>
     private static List<int> FindDivisors(int number) {
         List<int> results = new();
-        // TODO problem 1
-        return results;
+        
+    for (int i = 1; i * i <= number; i++) {
+        if (number % i == 0) {
+            // i is a divisor
+            if (i != number) {
+                results.Add(i);
+            }
+
+            int pair = number / i;
+            // add the paired divisor if it's different
+            // and not the number itself
+            if (pair != i && pair != number) {
+                results.Add(pair);
+            }
+        }
+    }
+
+    results.Sort();
+    return results;
     }
 }

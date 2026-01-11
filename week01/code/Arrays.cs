@@ -8,12 +8,23 @@ public static class Arrays
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     public static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // --- PLAN ---
+        // 1. Initialize a new array of doubles with the size specified by the 'length' parameter.
+        // 2. Create a loop that runs 'length' number of times (from index 0 to length - 1).
+        // 3. In each iteration, calculate the multiple by multiplying 'number' by (index + 1).
+        //    (e.g., if index is 0, multiple is number * 1; if index is 1, multiple is number * 2).
+        // 4. Store that calculated value into the current index of the array.
+        // 5. After the loop finishes, return the completed array.
 
-        return []; // replace this return statement with your own
+        // Implementation:
+        double[] results = new double[length];
+
+        for (int i = 0; i < length; i++)
+        {
+            results[i] = number * (i + 1);
+        }
+
+        return results;
     }
 
     /// <summary>
@@ -25,9 +36,26 @@ public static class Arrays
     /// </summary>
     public static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // --- PLAN ---
+        // 1. Identify the split point. Since we are moving the "end" of the list to the "front",
+        //    the number of elements to move is 'amount'.
+        // 2. The starting index of the section to be moved is (data.Count - amount).
+        // 3. Use GetRange to extract the elements from the split point to the end of the list 
+        //    and store them in a temporary list.
+        // 4. Use RemoveRange to delete those same elements from their original position at the end of the list.
+        // 5. Use InsertRange to place the temporary list back into the original list at index 0.
+
+        // Implementation:
+        if (data.Count == 0 || amount == 0 || amount == data.Count) return;
+
+        // Get the items from the end that need to move to the front
+        int startingIndex = data.Count - amount;
+        List<int> movedPart = data.GetRange(startingIndex, amount);
+
+        // Remove them from the end
+        data.RemoveRange(startingIndex, amount);
+
+        // Put them at the beginning
+        data.InsertRange(0, movedPart);
     }
 }
