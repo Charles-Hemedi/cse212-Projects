@@ -4,31 +4,45 @@
 /// </summary>
 public class CustomerService {
     public static void Run() {
-        // Example code to see what's in the customer service queue:
-        // var cs = new CustomerService(10);
-        // Console.WriteLine(cs);
+        // Test 1: Invalid queue size defaults to 10
+    Console.WriteLine("Test 1");
+    var cs1 = new CustomerService(0);
+    Console.WriteLine(cs1);
+    // Expected: max_size=10
+    Console.WriteLine("=================");
 
-        // Test Cases
+    // Test 2: Add one customer
+    Console.WriteLine("Test 2");
+    var cs2 = new CustomerService(2);
+    Console.SetIn(new StringReader("Alice\nA1\nLogin issue\n"));
+    cs2.AddNewCustomer();
+    Console.WriteLine(cs2);
+    // Expected: size=1
+    Console.WriteLine("=================");
 
-        // Test 1
-        // Scenario: 
-        // Expected Result: 
-        Console.WriteLine("Test 1");
+    // Test 3: Queue full
+    Console.WriteLine("Test 3");
+    Console.SetIn(new StringReader("Bob\nB2\nPayment\n"));
+    cs2.AddNewCustomer();
+    Console.SetIn(new StringReader("Charlie\nC3\nAccess\n"));
+    cs2.AddNewCustomer(); // should error
+    Console.WriteLine(cs2);
+    // Expected: error message, size=2
+    Console.WriteLine("=================");
 
-        // Defect(s) Found: 
+    // Test 4: Serve customer FIFO
+    Console.WriteLine("Test 4");
+    cs2.ServeCustomer();
+    Console.WriteLine(cs2);
+    // Expected: Alice served, Bob remains
+    Console.WriteLine("=================");
 
-        Console.WriteLine("=================");
-
-        // Test 2
-        // Scenario: 
-        // Expected Result: 
-        Console.WriteLine("Test 2");
-
-        // Defect(s) Found: 
-
-        Console.WriteLine("=================");
-
-        // Add more Test Cases As Needed Below
+    // Test 5: Serve empty queue
+    Console.WriteLine("Test 5");
+    var cs3 = new CustomerService(1);
+    cs3.ServeCustomer();
+    // Expected: error message
+    Console.WriteLine("=================");
     }
 
     private readonly List<Customer> _queue = new();
