@@ -28,6 +28,22 @@
     /// </summary>
     /// <param name="numbers">array of integers</param>
     private static void DisplaySumPairs(int[] numbers) {
-        // TODO Problem 2 - This should print pairs of numbers in the given array
+         HashSet<int> seen = new HashSet<int>();
+        HashSet<string> pairs = new HashSet<string>();
+
+        foreach (int number in numbers) {
+            int complement = 10 - number;
+            if (seen.Contains(complement)) {
+                // Generate a pair string in sorted order to avoid duplicates
+                string pair = $"{Math.Min(number, complement)} {Math.Max(number, complement)}";
+                pairs.Add(pair);
+            }
+            seen.Add(number);
+        }
+
+        // Print all unique pairs
+        foreach (string pair in pairs) {
+            Console.WriteLine(pair);
+        }
     }
 }
